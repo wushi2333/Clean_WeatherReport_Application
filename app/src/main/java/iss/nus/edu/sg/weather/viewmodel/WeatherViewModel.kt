@@ -102,9 +102,15 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 catch (_: SecurityException) {}
             }
             if (loc == null) { Log.d("WeatherVM", "No GPS"); return }
-            val cityId = "${loc.longitude},${loc.latitude}"
-            prefs.upsertGpsCity(City(name = "定位城市", cityId = cityId,
-                longitude = loc.longitude.toString(), latitude = loc.latitude.toString(), source = "gps"))
+            val gpsLon = loc.longitude
+            val gpsLat = loc.latitude
+            val nearest = CityDatabase.findNearest(gpsLon, gpsLat)
+            val cityName = nearest?.name ?: "定位城市"
+            val cityId = "$gpsLon,$gpsLat"
+            Log.d("WeatherVM", "GPS nearest city: $cityName")
+            prefs.upsertGpsCity(City(name = cityName, cityId = cityId,
+                longitude = gpsLon.toString(), latitude = gpsLat.toString(),
+                adm1 = nearest?.province ?: "", source = "gps"))
         } catch (e: Exception) { Log.d("WeatherVM", "GPS error: ${e.message}") }
     }
 
