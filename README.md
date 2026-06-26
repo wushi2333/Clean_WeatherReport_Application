@@ -47,15 +47,13 @@ keytool -genkey -v -keystore weather.jks -alias weather -keyalg RSA -keysize 204
 ./gradlew assembleRelease
 ```
 
-## 下载
-
-Release 页面下载最新 APK，直接安装使用。
-
 ## 截图
 
-| 晴天 | 雨天 |
-|------|------|
-| 蓝色渐变背景 | 灰蓝背景 + 雨滴动画 |
+<p align="center">
+  <img src="screenshots/screenshot_sunny.jpg" width="45%" alt="晴天" />
+  &nbsp;&nbsp;
+  <img src="screenshots/screenshot_rainy.jpg" width="45%" alt="雨天" />
+</p>
 
 ## License
 
